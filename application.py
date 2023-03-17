@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
@@ -37,3 +37,20 @@ def get_drinks():
 def get_drink(id):
     drink = DRINK.query.get_or_404(id)
     return jsonify({"name": drink.name, "description": drink.description})
+
+
+@app.route('/drinks', methods=['POST'])
+def add_drink():
+    drink = DRINK(name=request.json['name'],
+                  description=request.json['description'])
+    db.session.add(drink)
+    db.session.commit()
+    return {'id': drink.id}
+
+
+@app.route('/drinks/<id>', methods={'delete'})
+def delete_drink(id):
+    drink = DRINK.query.get(id)
+    db.session.delete(drink)
+    db.session.commit()
+    return "removed drink"
