@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
@@ -31,3 +31,9 @@ def get_drinks():
         drink_data = {'name': drink.name, 'description': drink.description}
         output.append(drink_data)
     return {"drinks": output}
+
+
+@app.route('/drinks/<id>')
+def get_drink(id):
+    drink = DRINK.query.get_or_404(id)
+    return jsonify({"name": drink.name, "description": drink.description})
