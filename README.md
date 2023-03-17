@@ -17,6 +17,9 @@ $ flask shell
 then in the flask shell we run
 >> db.create_all()
 
+see drinks by using
+>> DRINK.query.all()
+
 
 
 
