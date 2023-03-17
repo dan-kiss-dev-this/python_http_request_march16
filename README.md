@@ -11,10 +11,17 @@ $ export FLASK_ENV=development
 now to run the enviornment do
 $ flask run
 
+to solve the error when run db.create_all() we make a context by running
+$ flask shell
+
+then in the flask shell we run
+>> db.create_all()
 
 
 
-//
+
+
+--
 Additional notes to make a virtual enviornment for python write
 $python3 -m venv project_env_dk_marchsixteen
 
